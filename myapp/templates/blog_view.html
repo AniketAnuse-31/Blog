@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogPost</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-primary">Blog Posts</h1>
+            <a href="{% url 'blog-create' %}" class="btn btn-success btn-sm">Add Blog</a>
+        </div>
+        {% for blog in blogs %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title text-primary">{{ blog.title }}</h2>
+                <p class="card-text text-muted"><strong>Category:</strong> {{ blog.category }}</p>
+                <p class="card-text">{{ blog.content }}</p>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <small class="text-muted">
+                        <strong>Author:</strong> {{ blog.author }} | 
+                        <strong>Created At:</strong> {{ blog.created_at }} | 
+                        <strong>Updated At:</strong> {{ blog.updated_at }}
+                    </small>
+                    <div>
+                        <a href="{% url 'blog-update' blog.id %}" class="btn btn-warning btn-sm">Update</a>
+                        <a href="{% url 'blog-delete' blog.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{% url 'comment-view' blog.id %}" class="btn btn-info btn-sm">View Comments</a>
+                        <a href="{% url 'comment-add' blog.id %}" class="btn btn-primary btn-sm">Add Comment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}
